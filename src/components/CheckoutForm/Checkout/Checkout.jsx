@@ -9,7 +9,7 @@ import PaymentForm from '../PaymentForm';
 
 const steps = ['Shipping Address', 'Payment Details'];
 
-const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
+const Checkout = ({ cart, order, onCaptureCheckout, error, refreshCart }) => {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null);
     const [shippingData, setShippingData] = useState({});
@@ -22,8 +22,8 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
             try {
                 const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
                 setCheckoutToken(token);
-            }catch (error){
-                history.pushState('/')
+            }catch (error) {
+                history.push('/');
             }
         }
 
@@ -41,9 +41,11 @@ const Checkout = ({ cart, order, onCaptureCheckout, error }) => {
 
     const timeout = () => {
         setTimeout(() => {
-            setIsFinished(true)
+            setIsFinished(true);
+            refreshCart();
         }, 3000);
     }
+
     let Confirmation = () => order.customer ? (
         <>
         <div>
