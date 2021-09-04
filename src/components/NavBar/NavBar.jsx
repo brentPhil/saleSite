@@ -1,11 +1,12 @@
 import React from 'react'
 // eslint-disable-next-line no-unused-vars
-import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Badge, Button, Typography } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import { Link, useLocation } from 'react-router-dom';
-
+import SearchBar from './Tool/SearchBar';
 import logo from '../../assets/logo.svg';
 import useStyles from './styles';
+import Account from './Tool/Account/Account';
 
 
 const NavBar = ({ totalItems }) => {
@@ -15,21 +16,27 @@ const NavBar = ({ totalItems }) => {
 
     return (
         <>
-         <AppBar position="fixed" className={classes.AppBar} color="inherit">
+         <AppBar position="fixed" className={classes.appBar}>
          <Toolbar>
-             <Typography component={Link} to="/" variant="h6" className={classes.tilte} color="inherit">
-                 <img src={logo} alt="Commerce.js" height="25px" className={classes.image} />
-             </Typography>
-             <div className={classes.grow} />
-             {location.pathname === '/' && (
-             <div className={classes.button}>
-                 <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
-                     <Badge badgeContent={totalItems} color="secondary">
-                         <ShoppingCart />
-                     </Badge>
-                 </IconButton>
-             </div>
-             )}
+            <div component={Link} to="/">
+                <img src={logo} alt="Commerce.js" height="25px" className={classes.image} />
+            </div>
+            <SearchBar />
+            <div className={classes.grow} />
+            {location.pathname === '/' && (
+            <div className={classes.button}>
+            <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+                <Badge badgeContent={totalItems} color="secondary">
+                    <ShoppingCart />
+                </Badge>
+            </IconButton>
+            </div>
+            )} 
+            <Account />
+            {/* <div>
+            <Button className={classes.emptyButton} size="small" type="button" variant="outlined" color="secondary">Sign In</Button>
+            <Button className={classes.checkoutButton} size="small" type="button" variant="contained" color="primary">Sign Up</Button>
+            </div> */}
          </Toolbar>
          </AppBar>   
         </>

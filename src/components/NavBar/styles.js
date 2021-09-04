@@ -3,9 +3,18 @@ import { makeStyles, fade } from '@material-ui/core/styles';
 const drawerWidth = 0;
 
 export default makeStyles((theme) => ({
+  emptyButton: {
+    minWidth: '100px',
+    [theme.breakpoints.up('xs')]: {
+      margin: '0 15px',
+    },
+  },
+  checkoutButton: {
+    minWidth: '100px',
+  },
   appBar: {
     boxShadow: 'none',
-    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+    background: '#FF665A',
     [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
@@ -65,4 +74,5 @@ export default makeStyles((theme) => ({
       width: '20ch',
     },
   },
+  
 }));
