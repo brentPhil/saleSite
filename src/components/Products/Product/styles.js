@@ -17,4 +17,15 @@ export default makeStyles(() => ({
         display: 'flex',
         justifyContent: 'space-between',
     },
+    name: {
+        whiteSpace: 'nowrap', 
+        overflow: 'hidden', 
+        textOverflow: 'ellipsis',
+        marginRight: '4em',
+    },
+    star: {
+        position: 'relative',
+        left: '-3px',
+    }
+    
 }));

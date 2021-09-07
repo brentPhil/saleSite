@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+$letter: 'Montserrat', sans-serif;
+
+.Scon{
+    width: 100%;
+    text-align: center;
+    margin: 0 1em;
+    position: relative;
+}
+.dropDown{
+    font-family: $letter;
+    position: relative;
+    bottom: -.4em;
+    left: -1em;
+}
+
+#search{
+    font-family: $letter;
+}
+.product{
+    background: #FF665A;
+}
+#name{
+    color: white;
+    font-family: $letter;
+}
+

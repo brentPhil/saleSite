@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { commerce } from './lib/commerce';
-import {  Navbar, Products, Cart, Checkout } from './components';
+import {  Navbar, Products, SearchRe, Cart, Checkout } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
@@ -8,6 +8,29 @@ const App = () => {
     const [cart, setCart] = useState({});
     const [order, setOrder] = useState({});
     const [errorMessage, setErrorMessage] = useState('');
+    const [foundUsers, setFoundUsers] = useState(products);
+
+
+    const [name, setName] = useState('');
+
+    const filter = (e) => {
+        const keyword = e.target.value;
+    
+        if (keyword !== '') {   
+          const results = products.filter((product) => {
+            return product.name.toLowerCase().startsWith(keyword.toLowerCase());
+            // Use the toLowerCase() method to make it case-insensitive
+          });
+          setFoundUsers(results);
+        } else {
+            (<Products />)
+          // If the text field is empty, show all users
+        }
+    
+        setName(keyword);
+      };
+
+    console.log(foundUsers)
 
     const fetchProducts = async () => {
         const { data } = await commerce.products.list();
@@ -64,16 +87,20 @@ const App = () => {
         fetchProducts();
         fetchCart();
     }, []);
-
-    console.log(products);
-
     return (
         <Router>
             <div>
-            <Navbar totalItems={cart.total_items}/>
+            <Navbar totalItems={cart.total_items} 
+            products={products} 
+            filter={filter} 
+            name={name}
+           />
             <Switch>
                 <Route exact path="/">
-                    <Products products={products} onAddToCart={handleAddToCart} />
+                    <Products products={products} onAddToCart={handleAddToCart}/>
+                </Route>
+                <Route exact path="/SearchRe">
+                    <SearchRe onAddToCart={handleAddToCart} foundUsers={foundUsers} />
                 </Route>
                 <Route exact path="/cart">
                     <Cart 

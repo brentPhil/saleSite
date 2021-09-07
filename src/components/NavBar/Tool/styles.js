@@ -10,7 +10,7 @@ export default makeStyles((theme) => ({
           backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
         margin: '0 auto',
-        width: '100%',
+        width: '90%',
         maxWidth: '600px',
       },
       searchIcon: {
@@ -21,6 +21,6 @@ export default makeStyles((theme) => ({
         color: 'inherit',
       },
       inputInput: {
-        padding: theme.spacing(1, 2),
+        color: 'white',
       },
 }));
