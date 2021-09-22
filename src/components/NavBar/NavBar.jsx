@@ -10,7 +10,7 @@ import Account from './Tool/Account/Account';
 
 
 const NavBar = ({ totalItems, products, filter, name }) => {
-    const classes = useStyles();
+  const classes = useStyles();
     const location = useLocation();
     return (
         <>
@@ -21,24 +21,20 @@ const NavBar = ({ totalItems, products, filter, name }) => {
             </Button>
             <SearchBar products={products} filter={filter} name={name} />
             <div className={classes.grow} />
-            {location.pathname === '/cart' && (
-            <div className={classes.button}>
-            <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
-                <Badge badgeContent={totalItems} color="secondary">
-                    <ShoppingCart />
-                </Badge>
-            </IconButton>
-            </div>
-            )} 
+            {location.pathname === '/cart' ? ('') :
+                (<div className={classes.button}>
+                    <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
+                        <Badge badgeContent={totalItems} color="secondary">
+                            <ShoppingCart />
+                        </Badge>
+                    </IconButton>
+                </div>)
+            } 
             <Account />
-            {/* <div>
-            <Button className={classes.emptyButton} size="small" type="button" variant="outlined" color="secondary">Sign In</Button>
-            <Button className={classes.checkoutButton} size="small" type="button" variant="contained" color="primary">Sign Up</Button>
-            </div> */}
          </Toolbar>
          </AppBar>   
         </>
-    )
+  )
 }
 
 export default NavBar

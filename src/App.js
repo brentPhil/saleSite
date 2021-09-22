@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { commerce } from './lib/commerce';
-import {  Navbar, Products, SearchRe, Cart, Checkout } from './components';
+import {  Navbar, Products, SearchRe, ViewProduct, Cart, Checkout } from './components';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
     const [order, setOrder] = useState({});
+    const [details, setDetails] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [foundUsers, setFoundUsers] = useState(products);
 
@@ -30,7 +31,11 @@ const App = () => {
         setName(keyword);
       };
 
-    console.log(foundUsers)
+    const handleFetchDetails = async (productId) => {
+        setDetails(await commerce.products.retrieve(productId))
+    }
+
+    console.log(details)
 
     const fetchProducts = async () => {
         const { data } = await commerce.products.list();
@@ -44,7 +49,6 @@ const App = () => {
 
     const handleAddToCart = async  (productId, quantity) => {
         const { cart } = await commerce.cart.add(productId, quantity);
-
         setCart(cart);
     }
  
@@ -97,10 +101,13 @@ const App = () => {
            />
             <Switch>
                 <Route exact path="/">
-                    <Products products={products} onAddToCart={handleAddToCart}/>
+                    <Products products={products} onFetchDetails={handleFetchDetails}  onAddToCart={handleAddToCart}/>
                 </Route>
                 <Route exact path="/SearchRe">
                     <SearchRe onAddToCart={handleAddToCart} foundUsers={foundUsers} />
+                </Route>
+                <Route exact path="/ViewProduct">
+                    <ViewProduct details={details} onAddToCart={handleAddToCart} />
                 </Route>
                 <Route exact path="/cart">
                     <Cart 
